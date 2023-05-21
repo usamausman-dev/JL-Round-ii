@@ -44,7 +44,6 @@ const userProfileSchema = new Schema({
   email: {
     type: String,
     required: true,
-    unique: true,
   },
   salary: {
     type: Number,
