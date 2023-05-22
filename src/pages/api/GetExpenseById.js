@@ -8,7 +8,7 @@ export default async function handler(req, res) {
         if (!req.body) return res.status(404).json({ error: 'Dont Have form Data' })
         const { id } = req.body
 
-        const checkExisting = await Expense.find({ _id: id })
+        const checkExisting = await Expense.find({ _id:id })
         if (checkExisting) {
             res.status(201).json({ status: true, data: checkExisting })
         }

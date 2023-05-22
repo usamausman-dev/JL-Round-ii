@@ -2,18 +2,19 @@ import connectMongo from "../../../database/conn";
 import { Expense } from "../../../model/Schema";
 
 
+
 export default async function handler(req, res) {
   try {
     await connectMongo();
 
     if (req.method === "POST") {
-      const { expenseCategory } = req.body;
+      const { userEmail, expenseCategory } = req.body;
 
-      if (!expenseCategory) {
-        return res.status(400).json({ error: "Category parameter is missing" });
+      if (!userEmail || !expenseCategory) {
+        return res.status(400).json({ error: "User ID or expenseCategory parameter is missing" });
       }
 
-      const expenses = await Expense.find({ expenseCategory });
+      const expenses = await Expense.find({ userEmail, expenseCategory });
 
       return res.status(200).json({ data: expenses });
     } else {
@@ -24,5 +25,3 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: "Internal Server Error" });
   }
 }
-
-
